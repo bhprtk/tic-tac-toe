@@ -39,6 +39,7 @@ function gameStart(){
 
 
     socket.on('gameStates', (gameStates) => {
+        var stateLength = 0;
       lastUser = gameStates.lastUser;
       if(player!==lastUser){
           console.log('can move');
@@ -48,8 +49,10 @@ function gameStart(){
           $(".block").off('click');
       }
       for(var element in gameStates){
+          stateLength ++;
         $(`.block[data-pos="${element}"]`).text(`${gameStates[element]}`);
       }
+      console.log('stateLength: ', stateLength);
       if(winCheck()){
           winner = winCheck();
           socket.emit('finalWinner', winner);
@@ -62,8 +65,13 @@ function gameStart(){
                   location.reload();
               }
           }
-
       }
+      if(stateLength == 10 && !winCheck()){
+          if(confirm(`Nice draw! Try again.`)){
+              location.reload();
+          }
+      }
+
     });
     console.log('player: ', player);
 
@@ -120,7 +128,5 @@ function winCheck() {
   } else {
     console.log('no winner yet');
   }
-
-
   return winner;
 }
