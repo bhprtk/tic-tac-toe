@@ -24,6 +24,13 @@ function gameStart(){
         if(playerType==='X' || playerType ==='O'){
             $(this).hide();
         }
+        if(player === 'X'){
+            console.log('you can go first');
+            $(".block").click(clickBlock);
+        }else{
+            console.log('you cannot go first');
+            $(".block").off('click');
+        }
     });
 
     socket.on('gameStart', () => {
@@ -32,17 +39,11 @@ function gameStart(){
 
 
     socket.on('gameStates', (gameStates) => {
-    //   console.log('gameStates: ', gameStates);
-    //   console.log(gameStates.lastUser);
       lastUser = gameStates.lastUser;
-    //   console.log('lastUser: ', lastUser);
-    //   console.log('player', player);
       if(player!==lastUser){
-        //   $('#status span').text(`Your turn`);
           console.log('can move');
           $(".block").on('click', clickBlock);
       }else{
-        //   $('#status span').text(`Waiting for other player...`);
           console.log('cannot move');
           $(".block").off('click');
       }
@@ -64,8 +65,8 @@ function gameStart(){
 
       }
     });
+    console.log('player: ', player);
 
-    $(".block").click(clickBlock);
 }
 
 function clickBlock(e) {
