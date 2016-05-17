@@ -40,9 +40,12 @@ io.on('connection', function(socket) {
         console.log('position: ', position);
         if (!gameStates[`${position}`]) {
           gameStates[`${position}`] = gameState.player;
+          gameStates['lastUser'] = gameState.player;
+
           io.emit('gameStates', gameStates);
-        }
+        } else {
           console.log('the state already exists');
+        }
 
     });
 
@@ -54,6 +57,7 @@ io.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
         userCount--;
+        gameStates = {};
         console.log('userCount:', userCount);
     });
 });
