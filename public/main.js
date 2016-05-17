@@ -13,12 +13,19 @@ $(() => {
 });
 
 function gameStart(){
-    $('.block-container').fadeIn();
     console.log('connect to socket');
 
     socket = io();
 
+    socket.on('userCount', (userCount) => {
+        console.log('userCount: ' ,userCount);
+        $('#onlineNum').text(`${userCount} online`);
+    });
+
     socket.on('playerType', playerType => {
+        if(playerType){
+            $('.block-container').fadeIn();
+        }
         player = playerType;
         $('#status').text(`You are Player ${playerType}`);
         if(playerType==='X' || playerType ==='O'){
@@ -33,9 +40,11 @@ function gameStart(){
         }
     });
 
+
     socket.on('gameStart', () => {
         playerTurn = 'X';
     });
+
 
 
     socket.on('gameStates', (gameStates) => {

@@ -26,10 +26,11 @@ io.on('connection', function(socket) {
 
     userCount++;
     console.log('userCount', userCount);
+    io.emit('userCount', userCount);
 
-    if (userCount === 1) {
+    if (userCount % 2 == 1) {
         socket.emit('playerType', 'X');
-    } else if (userCount === 2) {
+    } else if (userCount % 2 == 0) {
         socket.emit('playerType', 'O');
         io.emit('gameStart', null);
     }
