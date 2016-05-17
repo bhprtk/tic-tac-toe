@@ -1,0 +1,22 @@
+{
+  "name": "tic-tac-toe-app",
+  "description": "",
+  "main": "app.js",
+  "authors": [
+    "pratik <lazy.monk.13@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "font-awesome": "^4.6.3",
+    "socket.io-client": "^1.4.6"
+  }
+}
