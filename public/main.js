@@ -15,12 +15,15 @@ $(() => {
 function gameStart(){
     $('.block-container').fadeIn();
     console.log('connect to socket');
-    $(this).hide();
+
     socket = io();
 
     socket.on('playerType', playerType => {
         player = playerType;
         $('#status').text(`You are Player ${playerType}`);
+        if(playerType==='X' || playerType ==='O'){
+            $(this).hide();
+        }
     });
 
     socket.on('gameStart', () => {
@@ -48,10 +51,17 @@ function gameStart(){
       }
       if(winCheck()){
           winner = winCheck();
-          socket.emit('finalWinner', winner)
-          if(confirm(`${winner} win! `)){
-              location.reload();
+          socket.emit('finalWinner', winner);
+          if(winner === player){
+              if(confirm(`You won! `)){
+                  location.reload();
+              }
+          }else{
+              if(confirm(`You lost! Try again.`)){
+                  location.reload();
+              }
           }
+
       }
     });
 
