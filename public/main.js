@@ -20,25 +20,28 @@ function gameStart(){
     socket.on('userCount', (userCount) => {
         console.log('userCount: ' ,userCount);
         $('#onlineNum').text(`${userCount} online`);
+        if(userCount<3){
+            socket.on('playerType', playerType => {
+                if(playerType){
+                    $('.block-container').fadeIn();
+                }
+                player = playerType;
+                $('#status').text(`You are Player ${playerType}`);
+                if(playerType==='X' || playerType ==='O'){
+                    $(this).hide();
+                }
+                if(player === 'X'){
+                    console.log('you can go first');
+                    $(".block").click(clickBlock);
+                }else{
+                    console.log('you cannot go first');
+                    $(".block").off('click');
+                }
+            });
+        }
     });
 
-    socket.on('playerType', playerType => {
-        if(playerType){
-            $('.block-container').fadeIn();
-        }
-        player = playerType;
-        $('#status').text(`You are Player ${playerType}`);
-        if(playerType==='X' || playerType ==='O'){
-            $(this).hide();
-        }
-        if(player === 'X'){
-            console.log('you can go first');
-            $(".block").click(clickBlock);
-        }else{
-            console.log('you cannot go first');
-            $(".block").off('click');
-        }
-    });
+
 
 
     socket.on('gameStart', () => {
