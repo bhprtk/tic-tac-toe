@@ -17,4 +17,10 @@
     margin: 0px -2px;
     border: 1px solid rgba(0,0,0,0.4);
     display: inline-block;
+    user-select: none;
+    cursor: pointer;
+}
+
+button.btn{
+    outline: none !important;
 }

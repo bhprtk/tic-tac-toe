@@ -46,11 +46,12 @@ io.on('connection', function(socket) {
         } else {
           console.log('the state already exists');
         }
-
     });
 
 
-
+    socket.on('finalWinner', function(winner) {
+        console.log('winner:', winner);
+    });
 
 
 
