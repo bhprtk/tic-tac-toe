@@ -1,3 +1,8 @@
+body{
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 .block-container {
     /*background: black;*/
     height: 308px;
