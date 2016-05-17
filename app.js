@@ -14,24 +14,37 @@ app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 var server = http.createServer(app);
 
 var io = require('socket.io')(server);
 
 var userCount = 0;
-
+var gameStates = {};
 io.on('connection', function(socket) {
-  userCount++;
-  console.log('userCount', userCount);
 
-  if(userCount === 1) {
-    socket.emit('playerType', 'X');
-  } else if(userCount === 2) {
-    socket.emit('playerType', 'O');
-    io.emit('gameStart', null);
-  }
+    userCount++;
+    console.log('userCount', userCount);
+
+    if (userCount === 1) {
+        socket.emit('playerType', 'X');
+    } else if (userCount === 2) {
+        socket.emit('playerType', 'O');
+        io.emit('gameStart', null);
+    }
+
+    socket.on('gameState', function(gameState) {
+        console.log(gameState);
+        var position = gameState.position;
+        console.log('position: ', position);
+        if (!gameStates[`${position}`]) {
+          gameStates[`${position}`] = gameState.player;
+          io.emit('gameStates', gameStates);
+        }
+          console.log('the state already exists');
+
+    });
 
 
 
@@ -39,11 +52,9 @@ io.on('connection', function(socket) {
 
 
 
-
-
-  socket.on('disconnect', function() {
-      userCount--;
-      console.log('userCount:', userCount);
+    socket.on('disconnect', function() {
+        userCount--;
+        console.log('userCount:', userCount);
     });
 });
 
@@ -55,11 +66,6 @@ io.on('connection', function(socket) {
 
 
 
-
-
-
-
-
 server.listen(PORT, err => {
-  console.log(err || `Server listening on port ${PORT}`);
+    console.log(err || `Server listening on port ${PORT}`);
 });

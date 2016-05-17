@@ -5,27 +5,35 @@ var player;
 var playerTurn;
 
 $(() => {
-  socket = io();
+    socket = io();
 
-  socket.on('playerType', playerType => {
-    player = playerType;
-    $('#playerType').text(`You are Player ${playerType}`);
-    $('#status').text(`Waiting for opponent.`);
-  });
+    socket.on('playerType', playerType => {
+        player = playerType;
+        $('#playerType').text(`You are Player ${playerType}`);
+        $('#status').text(`Waiting for opponent.`);
+    });
 
-  socket.on('gameStart', () => {
-    $('#status').text(`Game start.`);
-    playerTurn = 'X';
-  });
+    socket.on('gameStart', () => {
+        $('#status').text(`Game start.`);
+        playerTurn = 'X';
+    });
 
-  $(".block").click(clickBlock);
+    $(".block").click(clickBlock);
 
-
+    socket.on('gameStates', (gameStates) => {
+      console.log('gameStates: ', gameStates);
+    })
 
 
 });
 
-function clickBlock() {
-  var blockId = $(this).attr('id');
-  $('#' + blockId).text(player);
+function clickBlock(e) {
+    console.log(e.target);
+    $(e.target).off('click');
+    var position = $(e.target).attr('data-pos');
+    console.log(player, position);
+    socket.emit('gameState', {
+        position: position,
+        player: player
+    });
 }
