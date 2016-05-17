@@ -18,17 +18,19 @@ function gameStart(){
     socket = io();
 
     socket.on('userCount', (userCount) => {
-        console.log('userCount: ' ,userCount);
+        console.log('userCount: ', userCount);
         $('#onlineNum').text(`${userCount} online`);
-        if(userCount<3){
+        if(userCount>0){
             socket.on('playerType', playerType => {
+                player = playerType;
+                console.log('playerType: ', playerType);
+                $('#status').text(`You are ${playerType}`);
                 if(playerType){
+                    $(this).hide();
                     $('.block-container').fadeIn();
                 }
-                player = playerType;
-                $('#status').text(`You are Player ${playerType}`);
-                if(playerType==='X' || playerType ==='O'){
-                    $(this).hide();
+                if(playerType==='Visitor'){
+                    $(".block").off('click');
                 }
                 if(player === 'X'){
                     console.log('you can go first');
@@ -37,6 +39,7 @@ function gameStart(){
                     console.log('you cannot go first');
                     $(".block").off('click');
                 }
+
             });
         }
     });
@@ -85,7 +88,6 @@ function gameStart(){
       }
 
     });
-    console.log('player: ', player);
 
 }
 

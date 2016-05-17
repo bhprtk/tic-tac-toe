@@ -1,0 +1,4 @@
+node.gitignore
+.env
+bower_components
+node_modules
