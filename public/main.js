@@ -6,16 +6,21 @@ var playerTurn;
 var lastUser = 'X';
 
 $(() => {
+    $('.joinGame').click(gameStart);
+});
+
+function gameStart(){
+    console.log('connect to socket');
+    $(this).hide()
     socket = io();
 
     socket.on('playerType', playerType => {
         player = playerType;
-        $('#playerType').text(`You are Player ${playerType}`);
-        $('#status').text(`Waiting for opponent.`);
+        $('#status').text(`You are Player ${playerType}`);
     });
 
     socket.on('gameStart', () => {
-        $('#status').text(`Game start.`);
+        // $('#status').text(`Game start.`);
         playerTurn = 'X';
     });
 
@@ -24,32 +29,25 @@ $(() => {
       console.log('gameStates: ', gameStates);
       console.log(gameStates.lastUser);
       lastUser = gameStates.lastUser;
-      for(var element in gameStates){
-        console.log(element, gameStates[element]);
-        // $(`.block[data-pos="${element}"]`).text(`${gameStates[element]}`);
-        $(`#${element}`).text(gameStates[element]);
-        // var blockList = $('.block');
-        // console.log('blockList: ' ,blockList);
-        // blockList.forEach(block => {
-        //   block.text()
-        // });
+      console.log('lastUser: ', lastUser);
+      console.log('player', player);
+      if(player!==lastUser){
+          console.log('can move');
+          $(".block").on('click', clickBlock);
+      }else{
+          console.log('cannot move');
+          $(".block").off('click');
       }
-      // console.log('gameStates.length', gameStates.length);
-
+      for(var element in gameStates){
+        $(`.block[data-pos="${element}"]`).text(`${gameStates[element]}`);
+      }
     });
 
     $(".block").click(clickBlock);
-    //
-    // if(player !== lastUser) {
-    //   $(".block").click(clickBlock);
-    // } else {
-    //   console.log("it's not your turn");
-    // }
-
-});
+}
 
 function clickBlock(e) {
-
+    console.log('clicked');
     console.log(e.target);
     $(e.target).off('click');
     var position = $(e.target).attr('data-pos');

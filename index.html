@@ -1,46 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <title>tic-tac-toe</title>
+    <meta charset="UTF-8">
+    <title>tic-tac-toe</title>
 
-  <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
-  <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://bootswatch.com/readable/bootstrap.min.css">
+    <link rel="stylesheet" href="/bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
 
-  <script src="/bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="/bower_components/socket.io-client/socket.io.js"></script>
-  <script src="main.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/socket.io-client/socket.io.js"></script>
+    <script src="main.js"></script>
 </head>
+
 <body>
-  <div class="container">
-    <h1>tic tac toe</h1>
-    <p id="status">You are not in the game.</p>
-    <p id="playerType"></p>
-
-  <div class="col-md-6">
-    <table class="table table-bordered">
-      <tr>
-        <td class="block" id="1" data-pos="1"></td>
-        <td class="block" id="2" data-pos="2"></td>
-        <td class="block" id="3" data-pos="3"></td>
-      </tr>
-      <tr>
-        <td class="block" id="4" data-pos="4"></td>
-        <td class="block" id="5" data-pos="5"></td>
-        <td class="block" id="6" data-pos="6"></td>
-      </tr>
-      <tr>
-        <td class="block" id="7" data-pos="7"></td>
-        <td class="block" id="8" data-pos="8"></td>
-        <td class="block" id="9" data-pos="9"></td>
-      </tr>
-    </table>
-
-  </div>
+    <div class="container text-center">
+        <h1>tic tac toe</h1>
+        <h3>
+        <small id="status">You are not in the game.</small>
+    </h3>
+        <button class="btn btn-default joinGame">
+            Join the game!
+        </button>
+        <hr>
+        <div class="col-md-3"></div>
+        <div class="col-md-6 text-center">
+            <div class="block-container">
+                <div class="block" data-pos="1"><br></div>
+                <div class="block" data-pos="2"><br></div>
+                <div class="block" data-pos="3"><br></div>
+                <div class="block" data-pos="4"><br></div>
+                <div class="block" data-pos="5"><br></div>
+                <div class="block" data-pos="6"><br></div>
+                <div class="block" data-pos="7"><br></div>
+                <div class="block" data-pos="8"><br></div>
+                <div class="block" data-pos="9"><br></div>
+            </div>
+        </div>
 
 
 
-  </div><!-- /.comtainer -->
+    </div>
+    <!-- /.comtainer -->
 </body>
+
 </html>

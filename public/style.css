@@ -1,4 +1,20 @@
-.table {
-  height: 300px;
-  width: 300px;
+.block-container {
+    /*background: black;*/
+    height: 308px;
+    width: 308px;
+    margin: auto;
+}
+.block{
+    width: 100px;
+    height: 100px;
+    font-size: 2em;
+    color: rgba(0,0,0,0.5);
+    line-height: 100px;
+    font-family: sans-serif;
+    /*padding-top: 15px;
+    position: relative;*/
+    /*padding-top: 49.8px;*/
+    margin: 0px -2px;
+    border: 1px solid rgba(0,0,0,0.4);
+    display: inline-block;
 }
